@@ -9,9 +9,7 @@ class PaymentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Payment
         fields = ['id', 'payer', 'payer_details', 'amount', 'percent', 'pay_date']
-        extra_kwargs = {
-            'payer': {'write_only': True},
-        }
+        extra_kwargs = {}
 
     def get_payer_details(self, obj):
         return {

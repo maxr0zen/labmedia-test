@@ -1,27 +1,27 @@
 <template>
   <div class="page">
     <div class="header">
-      <button class="btn-back" @click="$router.back()">← Back</button>
-      <h1>Client #{{ id }}</h1>
+      <button class="btn-back" @click="$router.back()">← Назад</button>
+      <h1>Клиент #{{ id }}</h1>
     </div>
-    <div v-if="clientsStore.loading" class="loading">Loading...</div>
+    <div v-if="clientsStore.loading" class="loading">Загрузка...</div>
     <div v-else-if="clientsStore.client" class="detail-card">
       <div class="detail-grid">
-        <div><strong>First Name:</strong> {{ clientsStore.client.first_name }}</div>
-        <div><strong>Last Name:</strong> {{ clientsStore.client.last_name }}</div>
-        <div><strong>Country:</strong> {{ clientsStore.client.country }}</div>
-        <div><strong>Payments Count:</strong> {{ clientsStore.client.payments_count }}</div>
-        <div><strong>Total Payments:</strong> {{ formatMoney(clientsStore.client.total_payments) }}</div>
+        <div><strong>Имя:</strong> {{ clientsStore.client.first_name }}</div>
+        <div><strong>Фамилия:</strong> {{ clientsStore.client.last_name }}</div>
+        <div><strong>Страна:</strong> {{ clientsStore.client.country }}</div>
+        <div><strong>Кол-во платежей:</strong> {{ clientsStore.client.payments_count }}</div>
+        <div><strong>Всего платежей:</strong> {{ formatMoney(clientsStore.client.total_payments) }}</div>
       </div>
       <div class="actions">
-        <button class="btn btn-primary" @click="showEdit = true">Edit</button>
-        <button class="btn btn-danger" @click="handleDelete">Delete</button>
+        <button class="btn btn-primary" @click="showEdit = true">Редактировать</button>
+        <button class="btn btn-danger" @click="handleDelete">Удалить</button>
       </div>
     </div>
 
     <div v-if="showEdit" class="modal-overlay" @click.self="showEdit = false">
       <div class="modal">
-        <h2>Edit Client</h2>
+        <h2>Редактировать клиента</h2>
         <ClientForm
           :client="clientsStore.client"
           :loading="clientsStore.loading"
@@ -56,7 +56,7 @@ async function handleUpdate(data) {
 }
 
 async function handleDelete() {
-  if (!confirm('Delete this client?')) return
+  if (!confirm('Удалить этого клиента?')) return
   try {
     await clientsStore.deleteClient(props.id)
     router.push('/clients')

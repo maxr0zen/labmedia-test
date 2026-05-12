@@ -1,31 +1,31 @@
 <template>
   <form class="form" @submit.prevent="handleSubmit">
     <div class="form-group">
-      <label>Payer</label>
+      <label>Плательщик</label>
       <select v-model="form.payer" required>
-        <option disabled value="">Select client</option>
+        <option disabled value="">Выберите клиента</option>
         <option v-for="c in clients" :key="c.id" :value="c.id">
           {{ c.first_name }} {{ c.last_name }} ({{ c.country }})
         </option>
       </select>
     </div>
     <div class="form-group">
-      <label>Amount</label>
+      <label>Сумма</label>
       <input v-model="form.amount" type="number" step="0.01" min="0.01" required />
     </div>
     <div class="form-group">
-      <label>Percent</label>
+      <label>Процент</label>
       <input v-model="form.percent" type="number" min="0" max="100" required />
     </div>
     <div class="form-group">
-      <label>Pay Date</label>
+      <label>Дата платежа</label>
       <input v-model="form.pay_date" type="datetime-local" required />
     </div>
     <div class="form-actions">
       <button type="submit" class="btn btn-primary" :disabled="loading">
-        {{ isEdit ? 'Update' : 'Create' }}
+        {{ isEdit ? 'Обновить' : 'Создать' }}
       </button>
-      <button type="button" class="btn btn-secondary" @click="$emit('cancel')">Cancel</button>
+      <button type="button" class="btn btn-secondary" @click="$emit('cancel')">Отмена</button>
     </div>
   </form>
 </template>

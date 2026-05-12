@@ -1,31 +1,31 @@
 <template>
   <div class="page">
     <div class="header">
-      <button class="btn-back" @click="$router.back()">← Back</button>
-      <h1>Payment #{{ id }}</h1>
+      <button class="btn-back" @click="$router.back()">← Назад</button>
+      <h1>Платёж #{{ id }}</h1>
     </div>
-    <div v-if="paymentsStore.loading" class="loading">Loading...</div>
+    <div v-if="paymentsStore.loading" class="loading">Загрузка...</div>
     <div v-else-if="paymentsStore.payment" class="detail-card">
       <div class="detail-grid">
         <div><strong>ID:</strong> {{ paymentsStore.payment.id }}</div>
-        <div><strong>Payer:</strong>
+        <div><strong>Плательщик:</strong>
           <router-link :to="`/clients/${paymentsStore.payment.payer}`" class="link">
             {{ paymentsStore.payment.payer_details?.first_name }} {{ paymentsStore.payment.payer_details?.last_name }}
           </router-link>
         </div>
-        <div><strong>Amount:</strong> {{ formatMoney(paymentsStore.payment.amount) }}</div>
-        <div><strong>Percent:</strong> {{ paymentsStore.payment.percent }}%</div>
-        <div><strong>Date:</strong> {{ formatDate(paymentsStore.payment.pay_date) }}</div>
+        <div><strong>Сумма:</strong> {{ formatMoney(paymentsStore.payment.amount) }}</div>
+        <div><strong>Процент:</strong> {{ paymentsStore.payment.percent }}%</div>
+        <div><strong>Дата:</strong> {{ formatDate(paymentsStore.payment.pay_date) }}</div>
       </div>
       <div class="actions">
-        <button class="btn btn-primary" @click="showEdit = true">Edit</button>
-        <button class="btn btn-danger" @click="handleDelete">Delete</button>
+        <button class="btn btn-primary" @click="showEdit = true">Редактировать</button>
+        <button class="btn btn-danger" @click="handleDelete">Удалить</button>
       </div>
     </div>
 
     <div v-if="showEdit" class="modal-overlay" @click.self="showEdit = false">
       <div class="modal">
-        <h2>Edit Payment</h2>
+        <h2>Редактировать платёж</h2>
         <PaymentForm
           :payment="paymentsStore.payment"
           :clients="clientsStore.clients"
@@ -64,7 +64,7 @@ async function handleUpdate(data) {
 }
 
 async function handleDelete() {
-  if (!confirm('Delete this payment?')) return
+  if (!confirm('Удалить этот платёж?')) return
   try {
     await paymentsStore.deletePayment(props.id)
     router.push('/payments')
@@ -78,7 +78,7 @@ function formatMoney(val) {
 
 function formatDate(date) {
   if (!date) return ''
-  return new Date(date).toLocaleString()
+  return new Date(date).toLocaleString('ru-RU')
 }
 </script>
 

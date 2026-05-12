@@ -1,19 +1,19 @@
 <template>
   <div class="table-container">
     <div class="toolbar">
-      <input v-model="search" placeholder="Search clients..." @input="debouncedSearch" />
-      <button class="btn btn-primary" @click="$emit('create')">+ New Client</button>
+      <input v-model="search" placeholder="Поиск клиентов..." @input="debouncedSearch" />
+      <button class="btn btn-primary" @click="$emit('create')">+ Новый клиент</button>
     </div>
     <table class="data-table">
       <thead>
         <tr>
           <th @click="setOrdering('id')">ID {{ sortIcon('id') }}</th>
-          <th @click="setOrdering('first_name')">First Name {{ sortIcon('first_name') }}</th>
-          <th @click="setOrdering('last_name')">Last Name {{ sortIcon('last_name') }}</th>
-          <th @click="setOrdering('country')">Country {{ sortIcon('country') }}</th>
-          <th>Payments</th>
-          <th>Total</th>
-          <th>Actions</th>
+          <th @click="setOrdering('first_name')">Имя {{ sortIcon('first_name') }}</th>
+          <th @click="setOrdering('last_name')">Фамилия {{ sortIcon('last_name') }}</th>
+          <th @click="setOrdering('country')">Страна {{ sortIcon('country') }}</th>
+          <th>Платежи</th>
+          <th>Сумма</th>
+          <th class="actions-col">Действия</th>
         </tr>
       </thead>
       <tbody>
@@ -25,20 +25,20 @@
           <td>{{ client.payments_count }}</td>
           <td>{{ formatMoney(client.total_payments) }}</td>
           <td class="actions">
-            <button class="btn-icon" @click="$emit('edit', client)" title="Edit">✎</button>
-            <button class="btn-icon" @click="$emit('delete', client)" title="Delete">🗑</button>
-            <button class="btn-icon" @click="$router.push(`/clients/${client.id}`)" title="View">👁</button>
+            <button class="btn-icon" @click="$emit('edit', client)" title="Редактировать">✎</button>
+            <button class="btn-icon" @click="$emit('delete', client)" title="Удалить">🗑</button>
+            <button class="btn-icon" @click="$router.push(`/clients/${client.id}`)" title="Просмотр">👁</button>
           </td>
         </tr>
         <tr v-if="clients.length === 0">
-          <td colspan="7" class="empty">No clients found</td>
+          <td colspan="7" class="empty">Клиенты не найдены</td>
         </tr>
       </tbody>
     </table>
     <div class="pagination" v-if="pagination.count > pagination.pageSize">
-      <button :disabled="!pagination.previous" @click="changePage(-1)">← Prev</button>
-      <span>Page {{ pagination.page }} of {{ totalPages }}</span>
-      <button :disabled="!pagination.next" @click="changePage(1)">Next →</button>
+      <button :disabled="!pagination.previous" @click="changePage(-1)">← Назад</button>
+      <span>Страница {{ pagination.page }} из {{ totalPages }}</span>
+      <button :disabled="!pagination.next" @click="changePage(1)">Вперёд →</button>
     </div>
   </div>
 </template>
@@ -143,7 +143,7 @@ function formatMoney(val) {
 }
 
 .data-table td {
-  padding: 12px;
+  padding: 10px 12px;
   border-bottom: 1px solid #f0f0f0;
 }
 
@@ -151,23 +151,43 @@ function formatMoney(val) {
   background: #fafafa;
 }
 
+.actions-col {
+  width: 1px;
+  white-space: nowrap;
+}
+
 .actions {
   display: flex;
-  gap: 8px;
+  gap: 4px;
+  white-space: nowrap;
 }
 
 .btn-icon {
-  background: none;
-  border: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  background: #f0f2f5;
+  border: 1px solid transparent;
   cursor: pointer;
-  font-size: 1.1rem;
-  padding: 4px;
-  border-radius: 4px;
-  transition: background 0.2s;
+  font-size: 0.9rem;
+  border-radius: 6px;
+  transition: all 0.15s ease;
+  line-height: 1;
+  color: #444;
 }
 
 .btn-icon:hover {
-  background: #eee;
+  background: #e4e6eb;
+  border-color: #d0d4dc;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+}
+
+.btn-icon:active {
+  transform: translateY(0);
+  box-shadow: none;
 }
 
 .empty {

@@ -1,5 +1,6 @@
 from datetime import datetime, timezone, timedelta
 from django.core.management.base import BaseCommand
+from django.db import connection
 from apps.clients.models import Client
 from apps.payments.models import Payment
 
@@ -40,3 +41,9 @@ class Command(BaseCommand):
         for data in TEST_PAYMENTS:
             Payment.objects.create(**data)
         self.stdout.write(self.style.SUCCESS(f'Created {len(TEST_PAYMENTS)} payments'))
+
+        self.stdout.write('Resetting PostgreSQL sequences...')
+        with connection.cursor() as cursor:
+            cursor.execute("SELECT setval('clients_id_seq', (SELECT MAX(id) FROM clients))")
+            cursor.execute("SELECT setval('payments_id_seq', (SELECT MAX(id) FROM payments))")
+        self.stdout.write(self.style.SUCCESS('Sequences reset successfully'))

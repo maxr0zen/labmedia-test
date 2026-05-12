@@ -1,6 +1,6 @@
 <template>
   <div class="page">
-    <h1>Payments</h1>
+    <h1>Платежи</h1>
     <PaymentsTable
       :payments="paymentsStore.payments"
       :pagination="paymentsStore.pagination"
@@ -12,7 +12,7 @@
 
     <div v-if="showModal" class="modal-overlay" @click.self="closeModal">
       <div class="modal">
-        <h2>{{ isEdit ? 'Edit Payment' : 'New Payment' }}</h2>
+        <h2>{{ isEdit ? 'Редактировать платёж' : 'Новый платёж' }}</h2>
         <PaymentForm
           :payment="selectedPayment"
           :clients="clientsStore.clients"
@@ -71,7 +71,7 @@ async function handleSubmit(data) {
 }
 
 async function handleDelete(payment) {
-  if (!confirm(`Delete payment #${payment.id}?`)) return
+  if (!confirm(`Удалить платёж #${payment.id}?`)) return
   try {
     await paymentsStore.deletePayment(payment.id)
   } catch (e) {}

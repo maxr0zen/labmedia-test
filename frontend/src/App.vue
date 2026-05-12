@@ -1,14 +1,13 @@
 <template>
   <div class="app">
     <nav class="navbar">
-      <div class="nav-brand">LabMedia Payments</div>
+      <div class="nav-brand">LabMedia Платежи</div>
       <div class="nav-links">
-        <router-link to="/" exact-active-class="active">Dashboard</router-link>
-        <router-link to="/clients" exact-active-class="active">Clients</router-link>
-        <router-link to="/payments" exact-active-class="active">Payments</router-link>
+        <router-link to="/" exact-active-class="active">Дашборд</router-link>
+        <router-link to="/clients" exact-active-class="active">Клиенты</router-link>
       </div>
       <div class="connection-status" :class="wsConnected ? 'connected' : 'disconnected'">
-        {{ wsConnected ? 'Live' : 'Offline' }}
+        {{ wsConnected ? 'Онлайн' : 'Офлайн' }}
       </div>
     </nav>
     <main class="main-content">
@@ -34,9 +33,8 @@ onMounted(() => {
       wsConnected.value = true
     }
   })
-  // Simple heartbeat check
   const interval = setInterval(() => {
-    wsConnected.value = true // optimistic, since reconnect is handled internally
+    wsConnected.value = true
   }, 5000)
 
   onUnmounted(() => {

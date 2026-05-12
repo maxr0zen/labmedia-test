@@ -31,9 +31,14 @@ function addToast(message, type = 'info') {
 onMounted(() => {
   addWebSocketListener((data) => {
     if (data.type === 'model_update') {
-      const model = data.model === 'client' ? 'Client' : 'Payment'
-      const action = data.action.charAt(0).toUpperCase() + data.action.slice(1)
-      addToast(`${model} #${data.id} ${action}d`, 'success')
+      const model = data.model === 'client' ? 'Клиент' : 'Платёж'
+      const actionMap = {
+        create: 'создан',
+        update: 'обновлён',
+        delete: 'удалён',
+      }
+      const action = actionMap[data.action] || data.action
+      addToast(`${model} #${data.id} ${action}`, 'success')
     }
   })
 })

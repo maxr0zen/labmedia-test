@@ -1,28 +1,28 @@
 <template>
   <form class="form" @submit.prevent="handleSubmit">
     <div class="form-group">
-      <label>First Name</label>
+      <label>Имя</label>
       <input v-model="form.first_name" type="text" required maxlength="100" />
     </div>
     <div class="form-group">
-      <label>Last Name</label>
+      <label>Фамилия</label>
       <input v-model="form.last_name" type="text" required maxlength="100" />
     </div>
     <div class="form-group">
-      <label>Country</label>
+      <label>Страна</label>
       <input v-model="form.country" type="text" required maxlength="100" />
     </div>
     <div class="form-actions">
       <button type="submit" class="btn btn-primary" :disabled="loading">
-        {{ isEdit ? 'Update' : 'Create' }}
+        {{ isEdit ? 'Обновить' : 'Создать' }}
       </button>
-      <button type="button" class="btn btn-secondary" @click="$emit('cancel')">Cancel</button>
+      <button type="button" class="btn btn-secondary" @click="$emit('cancel')">Отмена</button>
     </div>
   </form>
 </template>
 
 <script setup>
-import { reactive, watch } from 'vue'
+import { reactive, watch, computed } from 'vue'
 
 const props = defineProps({
   client: { type: Object, default: null },
@@ -31,7 +31,7 @@ const props = defineProps({
 
 const emit = defineEmits(['submit', 'cancel'])
 
-const isEdit = !!props.client
+const isEdit = computed(() => !!props.client)
 
 const form = reactive({
   first_name: '',

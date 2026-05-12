@@ -1,6 +1,6 @@
 <template>
   <div class="page">
-    <h1>Clients</h1>
+    <h1>Клиенты</h1>
     <ClientsTable
       :clients="clientsStore.clients"
       :pagination="clientsStore.pagination"
@@ -12,7 +12,7 @@
 
     <div v-if="showModal" class="modal-overlay" @click.self="closeModal">
       <div class="modal">
-        <h2>{{ isEdit ? 'Edit Client' : 'New Client' }}</h2>
+        <h2>{{ isEdit ? 'Редактировать клиента' : 'Новый клиент' }}</h2>
         <ClientForm
           :client="selectedClient"
           :loading="clientsStore.loading"
@@ -69,7 +69,7 @@ async function handleSubmit(data) {
 }
 
 async function handleDelete(client) {
-  if (!confirm(`Delete client ${client.first_name} ${client.last_name}?`)) return
+  if (!confirm(`Удалить клиента ${client.first_name} ${client.last_name}?`)) return
   try {
     await clientsStore.deleteClient(client.id)
   } catch (e) {
